@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import api from "../services/api";
-import "../app/global.css";
+import api from "../../services/api";
+import "../../app/global.css";
 
 interface Movie { 
   id: number;
