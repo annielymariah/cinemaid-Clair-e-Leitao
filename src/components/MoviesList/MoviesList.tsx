@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import api from "../../services/api";
-import "../../app/global.css";
+import { MovieCard } from "../MovieCard";
+import { Swiper, SwiperSlide } from "swiper/react";
+import 'swiper/css';
 
-interface Movie { 
+interface Movie {
   id: number;
   title: string;
   poster_path: string;
@@ -10,36 +12,43 @@ interface Movie {
   overview: string;
 }
 
-export default function MoviesList() {
+interface MoviesListProps {
+  title: string;
+  apiEndpoint: string;
+}
+
+export default function MoviesList({ title, apiEndpoint }: MoviesListProps) {
   const [movies, setMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
     async function loadMovies() {
       try {
-        const response = await api.get("trending/movie/day", {
-        });
-        //console.log(response.data.results)
+        const response = await api.get(apiEndpoint);
         setMovies(response.data.results);
       } catch (error) {
-        console.error("Erro ao buscar filmes:", error);
+        console.error("Erro ao buscar itens:", error);
       }
     }
 
     loadMovies();
-  }, []);
+  }, [apiEndpoint]);
 
   return (
-      <div>
+    <div className="container position-relative py-4">
+      <h2 className="mb-4">{title}</h2>
+
+      <Swiper
+        spaceBetween={20}
+        slidesPerView={"auto"}
+        navigation
+        pagination={{ clickable: true }}
+      >
         {movies.map((movie) => (
-          <div key={movie.id} className="movie-card">
-            <img
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title}
-            />
-            <h2>{movie.title}</h2>
-            <p className="overview">{movie.overview}</p>
-          </div>
+          <SwiperSlide key={movie.id} style={{ width: "200px" }}>
+            <MovieCard {...movie} />
+          </SwiperSlide>
         ))}
+      </Swiper>
     </div>
   );
 }

@@ -1,14 +1,10 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import MoviesList from './components/MoviesList/MoviesList';
-import "./app/global.css";
-import "bootstrap/dist/css/bootstrap.min.css"
-import Navbar from './components/Navbar/Navbar';
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "bootstrap/dist/css/bootstrap.min.css";
+import App from "./App";
 
-
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Navbar/>
-    <MoviesList/>
-  </StrictMode>,
-)
+    <App />
+  </StrictMode>
+);
