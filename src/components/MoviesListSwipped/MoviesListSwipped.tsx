@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import api from "../../services/api";
 import { MovieCard } from "../MovieCard";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 interface Movie {
   id: number;
@@ -15,7 +20,7 @@ interface MoviesListProps {
   apiEndpoint: string;
 }
 
-export default function MoviesList({ title, apiEndpoint }: MoviesListProps) {
+export default function MoviesList({title, apiEndpoint }: MoviesListProps) {
   const [movies, setMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
@@ -34,11 +39,20 @@ export default function MoviesList({ title, apiEndpoint }: MoviesListProps) {
   return (
     <div className="container">
       <h2>{title}</h2>
-      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 g-3">
+
+      <Swiper
+        modules={[Navigation, Pagination]}
+        spaceBetween={20}
+        slidesPerView="auto"
+        navigation
+        pagination={{ clickable: true }}
+      >
         {movies.map((movie) => (
-          <MovieCard {...movie} />
+          <SwiperSlide key={movie.id} style={{ width: "200px"}}>
+            <MovieCard {...movie} />
+          </SwiperSlide>
         ))}
-      </div>
+      </Swiper>
     </div>
   );
 }

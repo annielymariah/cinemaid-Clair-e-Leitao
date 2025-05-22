@@ -1,0 +1,1 @@
+export { default as FiltredMovies } from "./FiltredMovies";
