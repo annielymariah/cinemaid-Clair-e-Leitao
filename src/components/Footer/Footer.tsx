@@ -6,7 +6,7 @@ export default function Footer() {
           <div className="col-12 col-md-8 text-center">
             <img 
               width={80} 
-              src="src/assets/logo_cinermaid.png" 
+              src="/logo_cinermaid.png" 
               alt="Logotipo Cinermaid" 
               className="mb-3"
             />
