@@ -33,7 +33,7 @@ export default function MoviesList({ title, apiEndpoint }: MoviesListProps) {
 
   return (
     <div className="container">
-      <h2>{title}</h2>
+      <h2 className="mt-4">{title}</h2>
       <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 g-3">
         {movies.map((movie) => (
           <MovieCard {...movie} />
