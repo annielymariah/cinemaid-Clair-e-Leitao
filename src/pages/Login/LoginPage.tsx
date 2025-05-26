@@ -12,42 +12,41 @@ export default function LoginPage() {
 
   const navigate = useNavigate();
 
-  const handleCreateSessionWithLogin = async (e: React.FormEvent) => {
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
-    setLoading(true);
     setError("");
+    setLoading(true);
 
     try {
-      const tokenResponse = await api.get("authentication/token/new");
-      if (!tokenResponse.data.success) {
-        throw new Error("Falha ao criar token");
+      const tokenResponse = await api.get("/authentication/token/new");
+      const { success, request_token } = tokenResponse.data;
+
+      if (!success || !request_token) {
+        setError("Erro ao obter token de autenticação.");
+        setLoading(false);
+        return;
       }
 
-      const requestToken = tokenResponse.data.request_token;
+      const validateResponse = await api.post("/authentication/token/validate_with_login", {
+        request_token,
+        username,
+        password,
+      });
+    
+      console.log("validateResponse", validateResponse.data);
 
-      const validationResponse = await api.post(
-        "authentication/token/validate_with_login",
-        {
-          username,
-          password,
-          request_token: requestToken,
-        }
-      );
-
-      console.log("Validation Response:", validationResponse.data);
-
-      if (!validationResponse.data.success) {
-        throw new Error("Credênciais inválidas");
+      if (validateResponse.data.success) {
+        localStorage.setItem("auth_token", request_token);
+        navigate("/"); 
+      } else {
+        setError("Usuário ou senha inválidos.");
       }
-      localStorage.setItem("token_id", validationResponse.data.session_id);
-      navigate("/");
-    } catch (err) {
-      const error = err as Error;
-      setError(error.message || "Autenticação falhou. Tente novamente.");
+    } catch {
+      setError("Erro ao autenticar. Verifique suas credenciais.");
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   return (
     <>
@@ -64,7 +63,7 @@ export default function LoginPage() {
               </div>
             )}
 
-            <form onSubmit={handleCreateSessionWithLogin}>
+            <form onSubmit={handleLogin}>
               <div className="mb-3">
                 <label htmlFor="username" className="form-label">
                   Nome de usuário
@@ -96,12 +95,15 @@ export default function LoginPage() {
               </div>
 
               <button
-                className="btn btn-primary w-100"
+                className="btn btn-primary w-100 mb-3"
                 type="submit"
                 disabled={loading || !username || !password}
               >
                 {loading ? "Autenticando..." : "Login"}
               </button>
+              <span className="text-center d-block mb-3">
+                Não possui uma conta? Cadastre-se por meio do <a href="https://www.themoviedb.org/signup" target="_blank">TMDB</a>.    
+              </span>
             </form>
           </div>
         </div>
