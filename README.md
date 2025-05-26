@@ -24,20 +24,14 @@
    yarn install
    ```
 
-3. **Configure a variável de ambiente**  
-   Crie um arquivo `.env` na raiz do projeto e adicione sua chave da API do TMDB:  
-   ```env
-   VITE_API_KEY=sua_chave_aqui
-   ```
-
-4. **Inicie o servidor de desenvolvimento**  
+3. **Inicie o servidor de desenvolvimento**  
    ```bash
    npm run dev
    # ou
    yarn dev
    ```
 
-5. **Acesse a aplicação**  
+4. **Acesse a aplicação**  
    Abra o navegador no link retornado.
 
 ## **🛠️ Tecnologias Utilizadas**  
