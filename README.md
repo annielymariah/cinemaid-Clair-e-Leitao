@@ -13,8 +13,8 @@
 
 1. **Clone o repositório**  
    ```bash
-   git clone https://github.com/seu-usuario/cinemaid.git
-   cd cinemaid
+   git clone https://github.com/annielymariah/cinemaid-Clair-e-Leitao
+   cd cinemaid-Clair-e-Leitao
    ```
 
 2. **Instale as dependências**  
