@@ -15,9 +15,10 @@ export default function FiltredMovies({
     <>
       <Navbar />
       <div className="container mt-5 pt-3">
-        <MoviesList title={title} apiEndpoint={apiEndpoint} />
+        <div className="container d-flex justify-content-center align-items-center min-vh-100">
+          <MoviesList title={title} apiEndpoint={apiEndpoint} />
+        </div>
       </div>
-
       <Footer />
     </>
   );

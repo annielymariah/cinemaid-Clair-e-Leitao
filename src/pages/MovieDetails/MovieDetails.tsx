@@ -51,45 +51,46 @@ export default function MovieDetails() {
       <Navbar />
 
       <div className="container mt-5 pt-5">
-        <div className="row">
-          <div className="col-md-4 mb-4">
-            <img
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title}
-              className="img-fluid border border-primary rounded"
-            />
-          </div>
-
-          <div className="col-md-6">
-            <h1 className="display-4">{movie.title}</h1>
-            <div className="d-flex flex-wrap gap-2 mb-3">
-              {movie.genres.map((genre) => (
-                <span key={genre.id} className="badge bg-primary">
-                  {genre.name}
-                </span>
-              ))}
+        <div className="container d-flex justify-content-center align-items-center min-vh-100">
+          <div className="row">
+            <div className="col-md-4 mb-4">
+              <img
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                alt={movie.title}
+                className="img-fluid border border-primary rounded"
+              />
             </div>
 
-            <div className="mb-4">
-              <p>
-                <strong>Data de lançamento:</strong>{" "}
-                {new Date(movie.release_date).toLocaleDateString()}
-              </p>
-              <p>
-                <strong>Avaliação:</strong> {movie.vote_average.toFixed(1)}/10
-              </p>
-              <p>
-                <strong>Duração:</strong> {Math.floor(movie.runtime / 60)}h{" "}
-                {movie.runtime % 60}m
-              </p>
-            </div>
+            <div className="col-md-6">
+              <h1 className="display-4">{movie.title}</h1>
+              <div className="d-flex flex-wrap gap-2 mb-3">
+                {movie.genres.map((genre) => (
+                  <span key={genre.id} className="badge bg-primary">
+                    {genre.name}
+                  </span>
+                ))}
+              </div>
 
-            <h3>Sinopse</h3>
-            <p className="lead">{movie.overview}</p>
+              <div className="mb-4">
+                <p>
+                  <strong>Data de lançamento:</strong>{" "}
+                  {new Date(movie.release_date).toLocaleDateString()}
+                </p>
+                <p>
+                  <strong>Avaliação:</strong> {movie.vote_average.toFixed(1)}/10
+                </p>
+                <p>
+                  <strong>Duração:</strong> {Math.floor(movie.runtime / 60)}h{" "}
+                  {movie.runtime % 60}m
+                </p>
+              </div>
+
+              <h3>Sinopse</h3>
+              <p className="lead">{movie.overview}</p>
+            </div>
           </div>
         </div>
       </div>
-
       <Footer />
     </>
   );
