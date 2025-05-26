@@ -1,7 +1,22 @@
 import { Link } from "react-router-dom";
-import { LoginButton } from "../LoginButton";
+import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 export default function Navbar() {
+  const location = useLocation();
+
+  const isAuthPage = location.pathname === "/login";
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [username, setUsername] = useState<string | null>(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("auth_token");
+    console.log("Token:", token);
+    const storedUsername = localStorage.getItem("auth_username");
+    setIsAuthenticated(!!token);
+    setUsername(storedUsername);
+  }, [location]);
+    
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light bg-gradient fixed-top border-bottom border-primary-subtle">
       <div className="container-fluid">
@@ -31,7 +46,20 @@ export default function Navbar() {
               </Link>
             </li>
           </ul>
-          <LoginButton />
+
+          {isAuthPage ? (
+            <div></div>
+          ) : isAuthenticated ? (
+            <button className="btn btn-outline-secondary" type="button" disabled>
+              {username ? username : "Logado"}
+            </button>
+          ) : (
+            <Link to="/login">
+              <button className="btn btn-outline-primary" type="submit">
+                Login
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </nav>

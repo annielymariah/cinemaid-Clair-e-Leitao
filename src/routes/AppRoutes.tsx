@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { MainPage } from "../pages/Main";
-import LoginPage from "../pages/Login/LoginPage";
+import { LoginPage } from "../pages/Login";
 import { FiltredMovies } from "../pages/FiltredMovies";
 import { MovieDetails } from "../pages/MovieDetails";
 
